@@ -213,3 +213,104 @@ A necessidade de interpretação do conteúdo do extrato será avaliada em etapa
 * Quais ações exigirão aprovação humana?
 * Como proteger credenciais e dados empresariais durante a execução do agente?
 * Como o agente será testado e seus resultados validados?
+
+## 5. O que o agente precisa fazer
+
+### 5.1 Processar as contas mensais de energia
+
+Para cada unidade geradora, o agente deverá:
+
+1. identificar a chegada ou disponibilidade de uma nova conta mensal;
+2. identificar a competência do documento;
+3. identificar a qual unidade geradora a conta pertence;
+4. ler o arquivo em formato PDF;
+5. extrair os dados necessários para o faturamento;
+6. inserir os dados na aba correta da planilha de faturamento;
+7. permitir que as fórmulas existentes na planilha realizem os cálculos;
+8. recuperar o valor calculado para faturamento;
+9. realizar as conferências definidas para o processo;
+10. preparar os dados necessários para emissão da fatura;
+11. solicitar aprovação humana antes da emissão;
+12. emitir a fatura somente após a aprovação.
+
+Caso seja encontrada alguma divergência durante a conferência, a emissão deverá ser interrompida até que o problema seja analisado.
+
+### 5.2 Atualizar o fluxo de caixa
+
+O agente deverá:
+
+1. obter as movimentações da conta empresarial;
+2. identificar individualmente cada transação;
+3. extrair informações como:
+
+   * data;
+   * valor;
+   * descrição;
+   * recebedor ou pagador;
+4. identificar se o lançamento é uma receita ou um gasto;
+5. identificar a categoria correspondente;
+6. identificar a qual unidade geradora o lançamento pertence;
+7. identificar despesas compartilhadas;
+8. aplicar as regras de rateio previamente definidas;
+9. verificar se o lançamento já foi registrado anteriormente;
+10. registrar os lançamentos classificados com segurança na planilha de fluxo de caixa.
+
+Quando não houver informação suficiente para classificar um lançamento com segurança, o agente **não deverá realizar o lançamento**.
+
+Nesse caso, deverá solicitar validação humana e aguardar a definição correta antes de atualizar a planilha.
+
+### 5.3 Enviar o extrato mensal de investimentos
+
+O agente deverá:
+
+1. verificar a disponibilidade do extrato mensal;
+2. obter o documento correspondente à competência correta;
+3. verificar se o arquivo é o documento esperado;
+4. preparar o envio para a contabilidade;
+5. realizar o envio automaticamente dentro do prazo estabelecido;
+6. notificar o usuário após a conclusão do envio.
+
+Essa atividade não exige aprovação humana prévia quando todas as verificações forem concluídas com sucesso.
+
+Caso exista alguma inconsistência no documento ou na competência, o envio deverá ser interrompido e o usuário deverá ser avisado.
+
+### 5.4 Acompanhar o status do processo mensal
+
+O agente deverá manter um acompanhamento do processo de cada competência, permitindo identificar o que já foi concluído, o que está pendente e o que depende de intervenção humana.
+
+O acompanhamento deverá incluir, no mínimo:
+
+#### Faturamento por unidade
+
+* conta mensal localizada;
+* dados extraídos;
+* planilha de faturamento atualizada;
+* cálculo realizado;
+* conferência concluída;
+* aprovação solicitada;
+* fatura emitida.
+
+#### Fluxo de caixa
+
+* movimentações obtidas;
+* lançamentos identificados;
+* lançamentos classificados;
+* lançamentos registrados;
+* lançamentos aguardando validação humana.
+
+#### Documentação contábil
+
+* extrato mensal localizado;
+* documento verificado;
+* documento enviado;
+* envio confirmado.
+
+### 5.5 Tratamento de exceções
+
+Sempre que o agente encontrar uma situação que não esteja prevista nas regras existentes ou não possuir informação suficiente para executar uma tarefa com segurança, deverá:
+
+1. interromper somente a etapa afetada;
+2. registrar a pendência;
+3. informar qual foi o problema encontrado;
+4. solicitar intervenção humana quando necessário;
+5. continuar executando as demais tarefas que não dependam daquela pendência.
