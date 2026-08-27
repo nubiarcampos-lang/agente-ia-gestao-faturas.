@@ -314,3 +314,77 @@ Sempre que o agente encontrar uma situação que não esteja prevista nas regras
 3. informar qual foi o problema encontrado;
 4. solicitar intervenção humana quando necessário;
 5. continuar executando as demais tarefas que não dependam daquela pendência.
+
+## 6. O que o agente não deve fazer
+
+O agente deverá respeitar limites de autonomia e segurança durante todo o processo.
+
+### 6.1 Não executar ações que exigem aprovação humana sem autorização
+
+O agente não deverá executar automaticamente tarefas que tenham sido definidas como dependentes de aprovação humana.
+
+Em especial, não deverá:
+
+* emitir uma fatura sem aprovação prévia;
+* prosseguir com a emissão caso seja identificada alguma divergência;
+* registrar no fluxo de caixa um lançamento cuja classificação seja incerta;
+* tomar decisões por conta própria em situações não previstas pelas regras estabelecidas.
+
+### 6.2 Não presumir informações
+
+Quando não houver informação suficiente para determinar com segurança a categoria, unidade, regra de rateio ou qualquer outro dado necessário, o agente não deverá inventar, presumir ou escolher arbitrariamente uma resposta.
+
+Nesses casos, deverá:
+
+1. registrar a pendência;
+2. informar qual informação não pôde ser determinada;
+3. solicitar orientação humana quando necessária.
+
+### 6.3 Não interromper todo o processo por causa de uma exceção
+
+Uma falha ou dúvida em uma tarefa não deverá interromper automaticamente todas as demais atividades do processo mensal.
+
+O agente deverá:
+
+1. interromper apenas a tarefa ou lançamento afetado;
+2. registrar a ocorrência como pendência;
+3. continuar executando as demais tarefas independentes que possam ser realizadas com segurança;
+4. incluir a pendência no status mensal.
+
+### 6.4 Não ocultar ações ou problemas
+
+O agente não deverá concluir silenciosamente ações relevantes ou ocultar erros encontrados durante o processo.
+
+Deverá notificar o usuário sobre:
+
+* tarefas que dependem de aprovação;
+* divergências encontradas;
+* lançamentos que não puderam ser classificados;
+* falhas na execução;
+* documentos esperados que não foram encontrados;
+* tarefas automáticas relevantes concluídas, quando estiver prevista notificação.
+
+### 6.5 Não alterar regras ou cálculos por conta própria
+
+O agente não deverá modificar:
+
+* fórmulas existentes nas planilhas;
+* regras de rateio;
+* categorias financeiras;
+* critérios de classificação;
+* limites de aprovação;
+
+sem que a alteração tenha sido previamente definida e validada pelo usuário.
+
+### 6.6 Não expor informações confidenciais
+
+O agente não deverá registrar em logs públicos, repositórios públicos ou outros ambientes inadequados:
+
+* credenciais e senhas;
+* dados bancários;
+* documentos fiscais reais;
+* dados de clientes;
+* identificadores empresariais sensíveis;
+* documentos financeiros ou contábeis confidenciais.
+
+Dados utilizados para documentação pública e demonstração do projeto deverão ser fictícios ou anonimizados.
