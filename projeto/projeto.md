@@ -122,6 +122,94 @@ Esta atividade possui prazo mensal e atualmente é realizada manualmente.
 * Quais informações devem ser interpretadas por IA e quais devem ser tratadas por regras tradicionais?
 * Quais ferramentas serão utilizadas na implementação?
 * Quais tarefas poderão ser executadas automaticamente?
+
+* ## 4. Entradas do agente
+
+### 4.1 Contas mensais de energia
+
+Cada unidade geradora possui uma pasta própria em ambiente de armazenamento em nuvem.
+
+As contas são disponibilizadas mensalmente em formato PDF.
+
+Os arquivos possuem identificadores que permitem determinar a qual unidade geradora pertencem e também identificar sua competência.
+
+Para preservar a privacidade dos dados reais, neste projeto público as unidades serão representadas como:
+
+* Unidade A
+* Unidade B
+
+Exemplos fictícios de nomes de arquivos:
+
+* `UNIDADE_A_2026_07_conta.pdf`
+* `UNIDADE_B_2026_07_conta.pdf`
+
+Do PDF deverão ser extraídas informações como:
+
+* data de referência;
+* data de vencimento;
+* valor a pagar;
+* consumo em kWh;
+* energia injetada.
+
+Esses dados deverão ser encaminhados para a aba correspondente da planilha de faturamento.
+
+### 4.2 Planilha de faturamento
+
+A planilha de faturamento será utilizada como uma das entradas e também como ferramenta de cálculo.
+
+Ela possui abas separadas para cada unidade geradora e fórmulas já existentes para calcular o valor mensal de faturamento.
+
+O agente não deverá inicialmente substituir essas fórmulas.
+
+O fluxo esperado será:
+
+1. identificar a unidade geradora;
+2. extrair os dados da conta de energia;
+3. inserir os dados na aba correspondente;
+4. permitir que as fórmulas existentes façam os cálculos;
+5. recuperar o valor calculado;
+6. realizar as conferências necessárias antes do faturamento.
+
+### 4.3 Movimentações da conta empresarial
+
+As movimentações da conta empresarial serão a principal fonte de informações para o fluxo de caixa.
+
+As informações disponíveis nas transações incluem, entre outras:
+
+* data;
+* valor;
+* descrição;
+* ente recebedor ou pagador.
+
+Essas informações deverão ser utilizadas para tentar identificar:
+
+* se o lançamento é uma receita ou um gasto;
+* a categoria correspondente;
+* a qual unidade geradora o lançamento pertence;
+* se a despesa deve ser compartilhada entre as duas unidades.
+
+Quando a descrição ou o recebedor não forem suficientes para uma classificação segura, o lançamento deverá ser encaminhado para validação humana.
+
+### 4.4 Documentos complementares
+
+Algumas despesas também podem possuir documentos recebidos por outros meios, como contas e boletos enviados por e-mail.
+
+Esses documentos poderão ser utilizados como fonte complementar de informação, mas não serão considerados inicialmente como fonte obrigatória para o funcionamento do agente.
+
+### 4.5 Extrato mensal de investimentos
+
+O extrato mensal da conta de investimentos empresarial será outra entrada do processo.
+
+Nesse caso, o documento não precisa necessariamente ser interpretado pela IA.
+
+Inicialmente, o objetivo é automatizar o processo de:
+
+1. obtenção do extrato mensal;
+2. geração ou download do arquivo;
+3. preparação para envio à contabilidade.
+
+A necessidade de interpretação do conteúdo do extrato será avaliada em etapas futuras do projeto.
+
 * Quais ações exigirão aprovação humana?
 * Como proteger credenciais e dados empresariais durante a execução do agente?
 * Como o agente será testado e seus resultados validados?
