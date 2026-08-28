@@ -797,3 +797,71 @@ Após a validação desse fluxo, o projeto poderá evoluir para:
 * classificação de lançamentos com apoio de IA;
 * envio automático de documentos à contabilidade;
 * integração de módulos especializados desenvolvidos em Python.
+
+## 11. Estratégia de implementação da primeira versão
+
+### 11.1 Escopo inicial
+
+A primeira implementação será realizada para o processo de faturamento de uma única unidade geradora.
+
+O objetivo será construir e validar um fluxo completo antes de expandir a automação para a segunda unidade e para os demais processos administrativos e financeiros.
+
+O fluxo inicial será:
+
+**conta mensal → identificação do documento → acesso ao conteúdo → extração dos dados → validação → atualização da planilha → leitura do cálculo → conferência → aprovação humana → ação → atualização do status.**
+
+### 11.2 Gatilho durante o desenvolvimento
+
+Durante a construção e os testes da primeira versão será utilizado inicialmente um **gatilho manual no n8n**.
+
+O gatilho manual permitirá executar o fluxo sob demanda, facilitando:
+
+* testes de cada etapa;
+* identificação de erros;
+* repetição dos testes;
+* análise dos dados transmitidos entre os nós;
+* correção do fluxo antes da automação definitiva.
+
+O gatilho manual será utilizado apenas como estratégia de desenvolvimento e não representa o funcionamento esperado da versão final.
+
+### 11.3 Gatilho da versão automatizada
+
+No funcionamento real, o usuário não deverá precisar consultar diariamente se uma nova conta foi disponibilizada.
+
+Após a validação do fluxo inicial, o gatilho manual será substituído por um mecanismo automático capaz de identificar a disponibilidade de uma nova conta mensal.
+
+Serão avaliadas duas estratégias:
+
+1. detecção de novo arquivo no ambiente de armazenamento em nuvem;
+2. verificação automática periódica da pasta durante o período esperado para disponibilização da conta.
+
+A escolha será realizada durante a implementação, considerando confiabilidade, simplicidade e recursos disponíveis na integração.
+
+### 11.4 Controle contra processamento duplicado
+
+Antes de processar uma conta, o agente deverá verificar se o documento ou a competência correspondente já foi processado.
+
+Essa verificação deverá impedir:
+
+* processamento repetido do mesmo documento;
+* duplicação de informações na planilha;
+* execução repetida de etapas posteriores.
+
+### 11.5 Notificação
+
+Quando uma nova conta for identificada e o processamento for iniciado, o agente deverá registrar essa informação no status mensal.
+
+Quando necessário, poderá também notificar o usuário sobre eventos relevantes, especialmente:
+
+* conta localizada;
+* erro ou divergência encontrada;
+* processamento concluído;
+* faturamento aguardando aprovação.
+
+### 11.6 Tratamento do arquivo PDF
+
+O agente não deverá criar cópias permanentes desnecessárias dos documentos utilizados no processo.
+
+O arquivo armazenado em nuvem deverá ser acessado para processamento e extração das informações necessárias.
+
+Caso a integração exija tecnicamente a obtenção temporária do arquivo para leitura, esse procedimento deverá ser tratado como parte do processamento e não como criação de um novo arquivo permanente.
