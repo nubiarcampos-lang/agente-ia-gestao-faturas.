@@ -507,3 +507,92 @@ Essa ferramenta deverá permitir, entre outras funções:
 A plataforma de automação ainda não foi escolhida.
 
 Entre as alternativas a serem avaliadas estão ferramentas low-code/no-code e soluções desenvolvidas com código.
+
+## 8. Decisão inicial de arquitetura
+
+### 8.1 Plataforma escolhida para a primeira versão
+
+Para a primeira versão do agente, foi escolhido o **n8n** como plataforma principal de automação e orquestração.
+
+A escolha foi feita considerando os seguintes critérios:
+
+* possibilidade de execução local;
+* facilidade de visualização dos fluxos;
+* integração com diferentes ferramentas e APIs;
+* possibilidade de utilização de modelos de IA;
+* suporte a fluxos que exigem aprovação humana;
+* menor curva de aprendizado para a construção do primeiro protótipo;
+* possibilidade de evolução futura sem necessidade de reconstruir todo o projeto.
+
+### 8.2 Estratégia de execução inicial
+
+A primeira versão será desenvolvida preferencialmente com o n8n executado localmente.
+
+Essa abordagem permitirá estudar e testar o funcionamento do agente em ambiente controlado antes de avaliar uma implantação permanente em servidor ou serviço em nuvem.
+
+A execução local também permitirá compreender melhor aspectos relacionados a:
+
+* armazenamento de credenciais;
+* autenticação;
+* comunicação com serviços externos;
+* segurança dos dados;
+* execução e monitoramento dos fluxos;
+* backup e recuperação do projeto.
+
+A execução local não será considerada, por si só, uma garantia de segurança. Credenciais, tokens e informações confidenciais deverão ser protegidos independentemente do ambiente utilizado.
+
+### 8.3 Papel do n8n
+
+O n8n será utilizado principalmente como **orquestrador do agente**.
+
+Sua função será coordenar as diferentes etapas do processo, incluindo:
+
+* recebimento de gatilhos;
+* acesso às fontes de dados;
+* execução das regras de negócio;
+* comunicação com modelos de IA;
+* atualização das planilhas;
+* controle das etapas do processo;
+* solicitação de aprovação humana;
+* tratamento de exceções;
+* envio de notificações;
+* integração com outras ferramentas.
+
+### 8.4 Evolução futura com Python
+
+Python não será utilizado como plataforma principal na primeira versão.
+
+Sua incorporação será avaliada progressivamente quando alguma tarefa apresentar necessidade de:
+
+* processamento de dados mais complexo;
+* tratamento avançado de documentos;
+* regras difíceis de manter visualmente no n8n;
+* grande quantidade de condições repetitivas;
+* maior controle sobre cálculos ou validações;
+* criação de funções específicas;
+* testes automatizados;
+* melhor desempenho ou manutenção por meio de código.
+
+Nesses casos, o n8n poderá continuar responsável pela orquestração enquanto módulos desenvolvidos em Python executam tarefas especializadas.
+
+A adoção de Python, portanto, será baseada em uma necessidade técnica identificada durante o desenvolvimento, e não em uma etapa obrigatória ou prazo previamente definido.
+
+### 8.5 Arquitetura inicial prevista
+
+A arquitetura inicial do projeto será baseada na seguinte divisão de responsabilidades:
+
+* **n8n:** automação e orquestração do fluxo;
+* **modelo de IA:** interpretação e classificação de informações quando houver ambiguidade;
+* **regras determinísticas:** cálculos, validações e rateios previamente definidos;
+* **serviços externos:** armazenamento de documentos, planilhas, e-mail, sistemas financeiros e demais ferramentas necessárias;
+* **interação humana:** aprovação de ações previamente definidas como sensíveis e resolução de exceções.
+
+Essa arquitetura poderá ser modificada durante o desenvolvimento conforme limitações, riscos ou novas necessidades sejam identificados.
+
+### 8.6 Critério de evolução da arquitetura
+
+Uma tarefa permanecerá implementada diretamente no n8n enquanto puder ser representada de maneira clara, segura e de fácil manutenção.
+
+Quando uma etapa se tornar excessivamente complexa, repetitiva ou difícil de testar e manter no fluxo visual, será avaliada sua implementação em Python ou em outra solução mais adequada.
+
+As alterações de arquitetura e os motivos que levaram a cada decisão serão documentados ao longo do projeto.
