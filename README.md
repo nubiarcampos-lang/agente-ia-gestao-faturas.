@@ -1,2 +1,2 @@
 # criando-meu-agente-ia
-Criar meu primeiro agente de ia para oficios administrativos. 
+Projeto prático de criação de um agente de IA para automação e processamento de faturas.
