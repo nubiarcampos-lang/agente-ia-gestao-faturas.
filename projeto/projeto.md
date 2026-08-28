@@ -388,3 +388,122 @@ O agente não deverá registrar em logs públicos, repositórios públicos ou ou
 * documentos financeiros ou contábeis confidenciais.
 
 Dados utilizados para documentação pública e demonstração do projeto deverão ser fictícios ou anonimizados.
+
+## 7. Ferramentas e integrações necessárias
+
+A implementação do agente dependerá da integração entre diferentes ferramentas já utilizadas no processo e uma plataforma responsável pela automação e orquestração das tarefas.
+
+### 7.1 Armazenamento em nuvem
+
+As contas mensais de energia são armazenadas em ambiente de armazenamento em nuvem.
+
+O agente deverá ser capaz de:
+
+* acessar as pastas correspondentes às unidades geradoras;
+* identificar novos documentos;
+* identificar a competência;
+* recuperar os arquivos necessários para processamento.
+
+### 7.2 Google Sheets
+
+O Google Sheets será utilizado em dois processos principais:
+
+**Planilha de faturamento**
+
+O agente deverá:
+
+* identificar a aba correspondente à unidade;
+* inserir os dados extraídos da conta de energia;
+* preservar as fórmulas existentes;
+* recuperar os resultados dos cálculos.
+
+**Planilha de fluxo de caixa**
+
+O agente deverá:
+
+* consultar registros existentes;
+* verificar possíveis duplicidades;
+* adicionar novos lançamentos;
+* registrar as classificações e rateios definidos.
+
+### 7.3 Plataforma de faturamento
+
+O agente deverá ser capaz de preparar os dados necessários para emissão da fatura.
+
+A possibilidade de realizar a emissão diretamente pela plataforma será investigada durante o desenvolvimento.
+
+A emissão deverá ocorrer somente após aprovação humana.
+
+### 7.4 Conta corrente empresarial
+
+As movimentações da conta corrente empresarial serão utilizadas como principal fonte para identificação de receitas e gastos.
+
+Será necessário investigar uma forma segura de obter informações como:
+
+* data;
+* valor;
+* descrição da movimentação;
+* recebedor ou pagador.
+
+A forma de integração ainda não foi definida.
+
+### 7.5 Plataforma de investimentos
+
+O agente deverá obter mensalmente o extrato da conta de investimentos empresarial.
+
+Será necessário investigar se existe uma forma segura de automatizar:
+
+* acesso ao extrato;
+* identificação da competência;
+* download do documento.
+
+### 7.6 E-mail
+
+O e-mail será utilizado para envio de documentos à contabilidade.
+
+Quando o envio puder ser realizado com segurança e todas as validações forem satisfeitas, o agente poderá executar essa tarefa automaticamente e posteriormente notificar o usuário.
+
+### 7.7 Canal de interação com o usuário
+
+O canal desejado inicialmente para:
+
+* solicitar aprovações;
+* comunicar pendências;
+* apresentar divergências;
+* enviar notificações de tarefas concluídas;
+
+é o WhatsApp.
+
+A viabilidade técnica dessa integração ainda será investigada.
+
+Caso o WhatsApp apresente limitações para o primeiro protótipo, poderá ser utilizado temporariamente outro canal de interação.
+
+### 7.8 Inteligência artificial
+
+Um modelo de IA será necessário principalmente para tarefas que envolvam interpretação ou classificação de informações não totalmente padronizadas, como:
+
+* interpretar descrições de movimentações financeiras;
+* sugerir categorias;
+* identificar situações ambíguas;
+* reconhecer quando não possui informação suficiente para tomar uma decisão.
+
+Cálculos matemáticos, regras fixas de rateio e outras operações determinísticas não deverão depender do modelo de IA.
+
+### 7.9 Plataforma de automação e orquestração
+
+Será necessária uma ferramenta responsável por coordenar o fluxo entre os diferentes sistemas.
+
+Essa ferramenta deverá permitir, entre outras funções:
+
+* executar tarefas automaticamente;
+* acessar serviços externos;
+* utilizar modelos de IA;
+* aplicar regras;
+* consultar e atualizar planilhas;
+* manter o estado do processo mensal;
+* interromper etapas específicas quando necessária aprovação humana;
+* continuar tarefas independentes mesmo quando existirem pendências.
+
+A plataforma de automação ainda não foi escolhida.
+
+Entre as alternativas a serem avaliadas estão ferramentas low-code/no-code e soluções desenvolvidas com código.
