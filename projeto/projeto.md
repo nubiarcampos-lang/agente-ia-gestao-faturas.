@@ -692,3 +692,108 @@ Uma tarefa permanecerá implementada diretamente no n8n enquanto puder ser repre
 Quando uma etapa se tornar excessivamente complexa, repetitiva ou difícil de testar e manter no fluxo visual, será avaliada sua implementação em Python ou em outra solução mais adequada.
 
 As alterações de arquitetura e os motivos que levaram a cada decisão serão documentados ao longo do projeto.
+
+## 10. Fluxo funcional do agente
+
+O agente será organizado em um fluxo mensal com três processos principais:
+
+* faturamento das unidades geradoras;
+* atualização do fluxo de caixa;
+* envio do extrato mensal de investimentos.
+
+Todos os processos alimentarão um controle de status mensal, permitindo acompanhar tarefas concluídas, pendências e ações que dependem de validação humana.
+
+### 10.1 Início do ciclo mensal
+
+Para cada competência, o agente deverá:
+
+1. identificar o período que está sendo processado;
+2. verificar quais documentos e informações já estão disponíveis;
+3. identificar quais tarefas já foram concluídas;
+4. executar as tarefas ainda pendentes;
+5. atualizar o status do processo ao longo da execução.
+
+### 10.2 Fluxo de faturamento
+
+Para cada unidade geradora, o fluxo previsto será:
+
+1. verificar se a conta mensal de energia está disponível;
+2. identificar a unidade e a competência;
+3. ler o documento;
+4. extrair os dados necessários;
+5. validar os dados extraídos;
+6. inserir as informações na aba correspondente da planilha de faturamento;
+7. permitir a execução das fórmulas existentes;
+8. recuperar o valor calculado;
+9. realizar as conferências previstas;
+10. solicitar aprovação humana para emissão;
+11. emitir a fatura somente após aprovação;
+12. registrar a conclusão da tarefa.
+
+Caso seja encontrada uma divergência, somente essa etapa deverá ser interrompida e registrada como pendência.
+
+### 10.3 Fluxo de caixa
+
+O fluxo de caixa seguirá as seguintes etapas:
+
+1. obter as movimentações financeiras ainda não processadas;
+2. verificar se cada transação já foi registrada anteriormente;
+3. identificar receita ou gasto;
+4. identificar a categoria correspondente;
+5. identificar a unidade relacionada;
+6. identificar se existe regra de rateio aplicável;
+7. aplicar regras determinísticas quando disponíveis;
+8. utilizar IA para apoiar classificações que dependam de interpretação;
+9. verificar se existe confiança suficiente na classificação;
+10. registrar automaticamente os lançamentos considerados seguros;
+11. encaminhar lançamentos ambíguos para validação humana.
+
+Transações aguardando validação não deverão impedir o processamento das demais movimentações.
+
+### 10.4 Fluxo do extrato mensal de investimentos
+
+O processo previsto será:
+
+1. verificar se o extrato da competência está disponível;
+2. obter o documento;
+3. confirmar que o arquivo corresponde ao período esperado;
+4. preparar o envio à contabilidade;
+5. enviar o documento automaticamente;
+6. confirmar a conclusão do envio;
+7. notificar o usuário.
+
+Caso o documento correto não esteja disponível ou seja identificada alguma inconsistência, o envio deverá ser suspenso e a pendência registrada.
+
+### 10.5 Status mensal
+
+O agente deverá consolidar o andamento das tarefas em um status mensal.
+
+O status deverá permitir identificar:
+
+* tarefas concluídas;
+* tarefas em andamento;
+* documentos ainda não encontrados;
+* divergências detectadas;
+* lançamentos aguardando classificação;
+* ações aguardando aprovação humana;
+* documentos enviados;
+* falhas ocorridas durante a execução.
+
+Uma pendência em determinado processo não deverá impedir a continuidade de tarefas independentes.
+
+### 10.6 Escopo da primeira versão
+
+A implementação será incremental.
+
+A primeira versão funcional será dedicada ao fluxo de faturamento de uma unidade geradora, contemplando o ciclo:
+
+**documento → extração de dados → atualização da planilha → cálculo → validação → aprovação humana → ação → atualização do status.**
+
+Após a validação desse fluxo, o projeto poderá evoluir para:
+
+* inclusão da segunda unidade geradora;
+* ampliação do controle de status mensal;
+* automação do fluxo de caixa;
+* classificação de lançamentos com apoio de IA;
+* envio automático de documentos à contabilidade;
+* integração de módulos especializados desenvolvidos em Python.
