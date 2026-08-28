@@ -591,6 +591,102 @@ Essa arquitetura poderá ser modificada durante o desenvolvimento conforme limit
 
 ### 8.6 Critério de evolução da arquitetura
 
+## 9. Decisões da IA, regras automáticas e aprovação humana
+
+Para reduzir erros e manter o controle sobre ações sensíveis, o agente será desenvolvido com três níveis de decisão:
+
+* regras automáticas;
+* decisões apoiadas por inteligência artificial;
+* decisões que exigem aprovação humana.
+
+O princípio adotado será:
+
+> **A IA será utilizada para interpretar situações ambíguas, enquanto cálculos e regras conhecidas serão executados de forma determinística. Ações sensíveis permanecerão sob controle humano.**
+
+### 9.1 Regras automáticas
+
+Sempre que uma tarefa puder ser determinada por critérios objetivos e previamente conhecidos, deverá ser utilizada uma regra automática.
+
+Entre essas tarefas estão:
+
+* identificar a unidade geradora a partir da origem ou identificação do documento;
+* identificar a competência dos documentos;
+* inserir dados nas abas correspondentes das planilhas;
+* preservar e utilizar as fórmulas existentes;
+* verificar duplicidade de lançamentos;
+* aplicar regras previamente definidas de rateio;
+* associar despesas a uma unidade quando existir uma regra explícita;
+* verificar se documentos correspondem à competência esperada;
+* atualizar o status das tarefas executadas;
+* realizar cálculos matemáticos e validações determinísticas.
+
+Regras conhecidas não deverão ser substituídas por decisões probabilísticas de um modelo de IA.
+
+### 9.2 Decisões apoiadas por inteligência artificial
+
+A IA será utilizada quando houver necessidade de interpretar informações que não estejam completamente padronizadas.
+
+Entre as possíveis aplicações estão:
+
+* interpretar descrições de movimentações financeiras;
+* sugerir a categoria de um lançamento;
+* interpretar informações textuais presentes em documentos;
+* identificar situações que não correspondam claramente às regras existentes;
+* detectar possíveis ambiguidades;
+* indicar quando não possui informação suficiente para uma classificação segura.
+
+A IA poderá sugerir uma classificação, mas não deverá inventar informações ou executar automaticamente uma ação quando a confiança for insuficiente.
+
+### 9.3 Situações que exigem aprovação humana
+
+Algumas ações deverão obrigatoriamente depender de validação humana.
+
+#### Emissão de faturas
+
+O agente deverá preparar os dados e realizar as conferências necessárias, mas a emissão da fatura somente poderá ocorrer após aprovação explícita do usuário.
+
+#### Lançamentos financeiros ambíguos
+
+Quando não for possível determinar com segurança:
+
+* a categoria;
+* a unidade correspondente;
+* a regra de rateio;
+* ou qualquer informação necessária para o lançamento;
+
+o agente não deverá registrar a transação na planilha.
+
+Deverá apresentar a situação ao usuário e aguardar orientação.
+
+#### Exceções não previstas
+
+Situações que possam alterar valores, classificações, regras ou decisões já estabelecidas deverão ser encaminhadas para validação humana.
+
+### 9.4 Ações que poderão ocorrer sem aprovação prévia
+
+Determinadas tarefas poderão ser executadas automaticamente quando todas as validações forem concluídas com sucesso.
+
+Entre elas:
+
+* atualização de dados nas planilhas conforme regras conhecidas;
+* aplicação de cálculos e rateios previamente definidos;
+* atualização do status mensal;
+* envio do extrato mensal de investimentos à contabilidade.
+
+Após o envio automático do extrato, o agente deverá notificar o usuário de que a tarefa foi concluída.
+
+### 9.5 Tratamento de baixa confiança
+
+Quando uma decisão baseada em IA apresentar baixa confiança ou informações contraditórias, o agente deverá:
+
+1. não executar a ação dependente daquela decisão;
+2. registrar a situação como pendência;
+3. apresentar as informações disponíveis;
+4. solicitar validação humana;
+5. continuar executando tarefas independentes que não sejam afetadas pela pendência.
+
+O agente não deverá transformar uma estimativa ou interpretação incerta em uma decisão definitiva sem validação.
+
 Uma tarefa permanecerá implementada diretamente no n8n enquanto puder ser representada de maneira clara, segura e de fácil manutenção.
 
 Quando uma etapa se tornar excessivamente complexa, repetitiva ou difícil de testar e manter no fluxo visual, será avaliada sua implementação em Python ou em outra solução mais adequada.
